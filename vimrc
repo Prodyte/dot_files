@@ -1,21 +1,50 @@
-set nocompatible              " required
-filetype off                  " required
+" plugin setup
+set nocompatible
+filetype off
 
-" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+Plugin 'morhetz/gruvbox'
 
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+call vundle#end()
+filetype plugin indent on
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+colorscheme gruvbox
+set bg=dark
 
-" add all your plugins here (note older versions of Vundle
-" used Bundle instead of Plugin)
+set number
 
-" ...
+set pastetoggle=<F2>
+set clipboard=unnamed
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+set mouse=a
+
+let mapleader = ","
+
+"QuicKSave
+noremap <C-Z> :update<CR>
+vnoremap <C-Z> <C-C>:update<CR>
+inoremap <C-Z> <C-O>:update<CR>
+
+"quit
+noremap <Leader>e :quit<CR> " quit current
+noremap <Leader>E :qa!<CR> " quit all windows
+
+"navigate tabs
+map <Leader>n <esc>:tabprevious<CR>
+map <Leader>m <esc>:tabnext<CR>
+
+"sort code
+vnoremap <Leader>s :sort<CR>
+
+"moving block of code
+vnoremap < <gv
+vnoremap > >gv
+
+"show whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
